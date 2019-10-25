@@ -1,0 +1,131 @@
+<html>
+  <head></head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      /* boilerplate for pixel renderer */
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+      ctx.canvas.width = 600
+      ctx.canvas.height = 400
+      ctx.fillStyle = 'black'
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      function setPoint(x, y){
+        ctx.fillRect(x*dot, (ctx.canvas.height-dot)-y*dot, dot, dot);
+      }
+      
+      /* variable for each pixel */
+      ctx.fillStyle = 'white'
+      const dot = 2
+      /* end boilerplate for pixel renderer */
+      
+      
+      
+      
+      /* DRAW here */
+      
+      /** DDA Algorithm **/
+      /*
+        problem :
+        hanya bisa dipakai bila (x1, y1) < (x2, y2)
+      */
+      x1 = 10; y1 = 10; 
+      x2 = 25; y2 = 150;
+      x = x1; y = y1;
+      
+      dx = x2-x1; dy = y2-y1;
+      
+      if( dx>dy ) steps = dx
+      else steps = dy
+      
+      x_inc = dx/steps
+      y_inc = dy/steps
+      
+      setPoint(x, y)
+      do{
+        x += x_inc
+        y += y_inc
+        setPoint( Math.round(x), Math.round(y) )
+      }while(x<x2)
+      /** DDA Algorithm **/
+        
+      /** Bresenham Algorithm **/
+      /*
+        problem :
+        1. jika y akhir > x akhir
+        2. jika x2 > x1 dan y1 < y2
+      */
+      x1 = 60; y1 = 40; 
+      x2 = 110; y2 = 10;
+      x = x1; y = y1;
+      
+      dx = Math.abs(x2-x1)
+      dy = Math.abs(y2-y1)
+      
+      p = 2 * dy - dx
+      dua_dy = 2 * dy
+      dua_dy_dx = 2 * (dy-dx)
+      
+      if(x1 > x2){
+        x = x2
+        y = y2
+        xend = x1
+      }else{
+        x = x1
+        y = y1
+        xend = x2
+      }
+      
+      setPoint(x, y)
+      
+      while (x < xend) {
+        x++
+        if (p < 0) {
+          p += dua_dy;
+        }
+        else
+        {
+          if (y1 > y2) {
+            y--
+          }
+          else y++
+          
+		      p += dua_dy_dx
+		    }
+        setPoint(x, y)
+      }
+      /** Bresenham Algorithm **/
+      
+      /** Circle Algorithm **/
+      r = 50
+      xc = 150
+      yc = 100
+      
+      p = 1 - r
+      x = 0
+      y = r
+      
+      while(x <= y){
+        x++
+        if(p<0){
+          p += 2 * x + 1
+        }else{
+          y--
+          p += 2 * (x-y) + 1
+        }
+        
+        setPoint(xc + x, yc + y)
+        setPoint(xc - x, yc + y)
+        setPoint(xc + x, yc - y)
+        setPoint(xc - x, yc - y)
+        setPoint(xc + y, yc + x)
+        setPoint(xc - y, yc + x)
+        setPoint(xc + y, yc - x)
+        setPoint(xc - y, yc - x)
+      }
+      /** Circle Algorithm **/
+      
+      /* DRAW here */
+    </script>
+  </body>
+</html>
