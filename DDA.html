@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>DDA Line</title>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script src="pixel_renderer.js"></script>
+        <script>
+            x1 = 5; y1 = 5; 
+            x2 = 200; y2 = 100;
+            x = x1; y = y1;
+
+            dx = (x2-x1)
+            dy = (y2-y1)
+       
+            if( Math.abs(dx)>Math.abs(dy) ) steps = Math.abs(dx)
+            else steps = Math.abs(dy)//DIBERI MATH ABS UNTUK NILAI ABSOLUTE DAN KARENA KALO TANPA MATH ABS - AKAN MENJADI NILAI TER RENDAH
+      
+            x_inc = dx/steps
+            y_inc = dy/steps
+      
+            setPoint(x, y)
+
+            i=0
+            do{
+                x += x_inc
+                y += y_inc
+                setPoint( Math.round(x), Math.round(y) )
+                ++i
+            }while(i<steps)
+            //diberi i<step karena kita ingin ini di ulang sebanyak step
+            //   kalo x<x2 menjadi masalah kalo x lebih besar dari x2 ato patokan stepnya jadi y
+        </script>
+    </body>
+</html>

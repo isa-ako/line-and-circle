@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>Bresenham Line</title>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script src="pixel_renderer.js"></script>
+        <script>
+
+      x1 = 200; y1 = 50; 
+      x2 = 20; y2 = 100;
+      
+      dx = Math.abs(x2-x1)
+      dy = Math.abs(y2-y1)
+
+      if (dx>dy){
+          // bila dx lebih besar dari dy, maka perulangan berdasarkan panjang x
+        p = 2 * dy - dx
+        dua_dy = 2 * dy
+        dua_dy_dx = 2 * (dy-dx)
+        if(x1 > x2){
+            x = x2
+            y = y2
+            xend = x1
+            yend = y1
+        }else{
+            x = x1
+            y = y1
+            xend = x2
+            yend = y2
+        }
+        setPoint(x, y)
+        while (x < xend) {
+            x++
+            if (p < 0) {
+            p += dua_dy;
+            }
+            else
+            {
+            if (y > yend) y-- 
+            else y++
+            
+            p += dua_dy_dx
+                }
+            setPoint(x, y)
+        }
+      }
+      else
+      {
+          // bila dy lebih besar dari dx, maka perulangan berdasarkan panjang y
+          // aturan yang diberlakukan untuk menghitung p juga dibalik antara variabel dx dan dy, x dan y
+        p = 2 * dx - dy
+        dua_dx = 2 * dx
+        dua_dx_dy = 2 * (dx-dy)
+        if(y1 > y2){
+            x = x2
+            y = y2
+            xend = x1
+            yend=y1
+        }else{
+            x = x1
+            y = y1
+            xend = x2
+            yend=y2
+        }
+        setPoint(x, y)
+        while (y < yend) {
+            y++
+            if (p < 0) {
+                p += dua_dx;
+            }
+            else
+            {
+                if (x > xend) x-- 
+                else x++
+                
+                p += dua_dx_dy
+            }
+            setPoint(x, y)
+        }
+      }
+
+        </script>
+    </body>
+</html>

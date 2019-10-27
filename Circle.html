@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Circle Line</title>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script src="pixel_renderer.js"></script>
+        <script>
+
+            r = 50
+            xc = 150
+            yc = 100
+            
+            p = 1 - r
+            x = 0
+            y = r
+            
+            //x -= 1 // to fix pixel without edge
+            
+            while(x <= y){
+                x++
+                if(p<0){
+                p += 2 * x + 1
+                }else{
+                y--
+                p += 2 * (x-y) + 1
+                }
+                
+                setPoint(xc + x, yc + y)
+                setPoint(xc - x, yc + y)
+                setPoint(xc + x, yc - y)
+                setPoint(xc - x, yc - y)
+                setPoint(xc + y, yc + x)
+                setPoint(xc - y, yc + x)
+                setPoint(xc + y, yc - x)
+                setPoint(xc - y, yc - x)
+            }
+
+        </script>
+    </body>
+</html>
